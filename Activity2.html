@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* White background */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .post button {
+            margin-left: 10px;
+            background-color: #007bff; /* Blue button color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .post button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+
+        .add-button {
+            background-color: #007bff; /* Blue button color */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .add-button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+
+        .management-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <h2 class="management-title">Community Management</h2>
+        <div id="postList"></div>
+        <h2 class="management-title">Activity Management</h2>
+        <button class="add-button" onclick="addActivity()">Add New Activity</button>
+        <div id="activityList"></div>
+    </div>
+
+    <script>
+        // Sample data representing posts
+        let posts = [
+            { id: 1, title: "Hi everyone I'm Maheshiii!." },
+            { id: 2, title: "New update for sign language learners." },
+            { id: 3, title: "Speak with Hands." }
+        ];
+
+        let activities = [];
+
+        // Function to display posts
+        function displayPosts() {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+
+            posts.forEach(post => {
+                const postDiv = document.createElement('div');
+                postDiv.classList.add('post');
+                postDiv.innerHTML = `<h3>${post.title}</h3><button onclick="approvePost(${post.id})">Approve</button><button onclick="removePost(${post.id})">Remove</button>`;
+                postList.appendChild(postDiv);
+            });
+        }
+
+        // Function to display activities
+        function displayActivities() {
+            const activityList = document.getElementById('activityList');
+            activityList.innerHTML = '';
+
+            activities.forEach(activity => {
+                const activityDiv = document.createElement('div');
+                activityDiv.classList.add('activity');
+                activityDiv.innerHTML = `<p>${activity}</p>`;
+                activityList.appendChild(activityDiv);
+            });
+        }
+
+        // Function to approve a post
+        function approvePost(postId) {
+            // Find the index of the post to be approved
+            const index = posts.findIndex(post => post.id === postId);
+            if (index !== -1) {
+                // Remove the post from the list
+                posts.splice(index, 1);
+                // Update UI
+                displayPosts();
+                // Perform additional actions if needed
+                console.log(`Post with ID ${postId} approved.`);
+            }
+        }
+
+        // Function to remove a post
+        function removePost(postId) {
+            // Find the index of the post to be removed
+            const index = posts.findIndex(post => post.id === postId);
+            if (index !== -1) {
+                // Remove the post from the list
+                posts.splice(index, 1);
+                // Update UI
+                displayPosts();
+                // Perform additional actions if needed
+                console.log(`Post with ID ${postId} removed.`);
+            }
+        }
+
+        // Function to add an activity
+        function addActivity() {
+            const activity = prompt("Enter activity:");
+            if (activity) {
+                activities.push(activity);
+                displayActivities();
+            }
+        }
+
+        // Display initial list of posts and activities
+        displayPosts();
+        displayActivities();
+    </script>
+</body>
+</html>
